@@ -17,13 +17,29 @@ import './App.css';
 import {Provider} from 'react-redux'
 
 import store from "./store";
-import {setCurrentUser} from "./actions/authActions";
+import {logoutUser, setCurrentUser} from "./actions/authActions";
 
 if (localStorage.jwtToken){
     setAuthToken(localStorage.jwtToken)
     //解析token
     const decoded = jwt_decode(localStorage.jwtToken)
     store.dispatch(setCurrentUser(decoded))
+
+    //检测token是否过期
+
+    //获取当前时间
+    const currentTime = Date.now()/1000
+
+    //判断当前时间是否大于token过期时间
+    if (decoded.exp<currentTime){
+        //过期
+        store.dispatch(logoutUser())
+        //TODO:清除用户信息
+
+        //页面跳转
+        window.location.href='/login'
+    }
+
 }
 
 class App extends Component {
