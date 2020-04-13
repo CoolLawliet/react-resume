@@ -41,3 +41,13 @@ export const setCurrentUser = decoded=>{
         payload:decoded
     }
 }
+
+//logout
+export const logoutUser = ()=>dispatch=>{
+//删除ls
+    localStorage.removeItem('jwtToken')
+    //干掉请求头
+    setAuthToken(false)
+    //连接reducer
+    dispatch(setCurrentUser({}))
+}
