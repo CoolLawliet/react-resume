@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
-import axios from 'axios'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {withRouter} from 'react-router-dom'
+/**react-redux 的两个主要功能
+* connect:用于从UI组件生成容器组件，将两种组件连起来
+* Provider:可以让组件及子组件拿到state
+* */
+import {connect} from 'react-redux'
+import {registerUser} from "../../actions/authActions";
 
 class Register extends Component {
     constructor() {
@@ -29,16 +36,22 @@ class Register extends Component {
             password2:this.state.password2
         };
 
+        //调用action
+        this.props.registerUser(newUser,this.props.history)
 
+    }
 
-        //请求
-        // axios.post('/api/users/register',newUser)
-        //     .then(res=> console.log(res.data))
-        //     .catch(err=>this.setState({errors:err.response.data}))
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.errors){
+            this.setState({
+                errors:nextProps.errors
+            })
+        }
     }
 
     render() {
         const {errors} = this.state;
+        // const {user} = this.props.auth;
 
         return (
             <div>
@@ -134,4 +147,16 @@ class Register extends Component {
     }
 }
 
-export default Register;
+Register.propTypes={
+    registerUser:PropTypes.func.isRequired,
+    auth:PropTypes.object.isRequired,
+    errors:PropTypes.object.isRequired
+}
+
+//将状态映射为属性
+const mapStateToProps = (state)=>({
+    auth:state.auth,
+    errors:state.errors
+})
+// export default Register;
+export default connect(mapStateToProps,{registerUser})(withRouter(Register));
