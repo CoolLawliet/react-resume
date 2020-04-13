@@ -91,7 +91,7 @@ class Register extends Component {
                                         error={errors.password}
                                     />
                                     <TextFieldGroup
-                                        type="password2"
+                                        type="password"
                                         placeholder="确认密码"
                                         name="password2"
                                         value={this.state.password2}
