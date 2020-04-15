@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {getCurrentProfile} from '../../actions/profileActions'
+import {getCurrentProfile,deleteAccount} from '../../actions/profileActions'
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import Spinner from "../../common/Spinner";
+import ProfileActives from "./ProfileActives";
 
 class Dashboard extends Component {
     componentDidMount() {
         //调用action
         this.props.getCurrentProfile()
+    }
+
+    onDeleteClick(e){
+        //调用action
+        this.props.deleteAccount()
     }
 
     render() {
@@ -25,7 +31,25 @@ class Dashboard extends Component {
             //检查对象中是否有数据‘
             if (Object.keys(profile).length>0){
                 //有数据
-                dashboardContent = <h4>TODO:展示数据</h4>
+                dashboardContent = (
+                    <div>
+                        <p className="lead text-muted">
+                            Welcome <Link to={`/profile/${profile[0].handle}`}>{user.name}</Link>
+                        </p>
+                        <ProfileActives/>
+
+                        {/* 教育经历 & 个人履历 */}
+
+                        {/* 删除账户按钮 */}
+                        <div style={{ marginBottom: '60px' }} />
+                        <button
+                            onClick={this.onDeleteClick.bind(this)}
+                            className="btn btn-danger"
+                        >
+                            删除当前账户
+                        </button>
+                    </div>
+                )
             }else{
                 //用户登录，但是没有数据
                 dashboardContent = (
@@ -53,6 +77,7 @@ class Dashboard extends Component {
 }
 Dashboard.propTypes={
     getCurrentProfile:PropTypes.func.isRequired,
+    deleteAccount:PropTypes.func.isRequired,
     auth:PropTypes.object.isRequired,
     profile:PropTypes.object.isRequired
 }
@@ -62,4 +87,4 @@ const mapStateToProps = (state)=>({
     auth:state.auth,
     profile:state.profile
 })
-export default connect(mapStateToProps, {getCurrentProfile})(Dashboard) ;
+export default connect(mapStateToProps, {getCurrentProfile,deleteAccount})(Dashboard) ;

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS} from "./types";
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER} from "./types";
 
 export const getCurrentProfile = ()=>dispatch => {
     //加载动画
@@ -19,6 +19,23 @@ export const getCurrentProfile = ()=>dispatch => {
             })
         })
 }
+//删除账户
+export const deleteAccount=()=>dispatch=>{
+    axios.delete('/api/profile')
+        .then(res=>{
+            dispatch({
+                type: SET_CURRENT_USER,
+                payload: {}
+            })
+        })
+        .catch(err=>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        )
+}
+
 export const setProfileLoading=()=>{
     return{
         type:PROFILE_LOADING
