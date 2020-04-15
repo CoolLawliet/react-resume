@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -9,6 +9,8 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 
 import Dashboard from "./components/dashboard/Dashboard";
+
+import PrivateRoute from "./common/PrivateRoute";
 
 import setAuthToken from "./utils/setAuthToken";
 import jwt_decode from 'jwt-decode'
@@ -21,7 +23,7 @@ import {Provider} from 'react-redux'
 import store from "./store";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
 
-if (localStorage.jwtToken){
+if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken)
     //解析token
     const decoded = jwt_decode(localStorage.jwtToken)
@@ -30,16 +32,16 @@ if (localStorage.jwtToken){
     //检测token是否过期
 
     //获取当前时间
-    const currentTime = Date.now()/1000
+    const currentTime = Date.now() / 1000
 
     //判断当前时间是否大于token过期时间
-    if (decoded.exp<currentTime){
+    if (decoded.exp < currentTime) {
         //过期
         store.dispatch(logoutUser())
         //TODO:清除用户信息
 
         //页面跳转
-        window.location.href='/login'
+        window.location.href = '/login'
     }
 
 }
@@ -55,7 +57,9 @@ class App extends Component {
                         <div className="container">
                             <Route exact path='/register' component={Register}/>
                             <Route exact path='/login' component={Login}/>
-                            <Route exact path='/dashboard' component={Dashboard}/>
+                            <Switch>
+                                <PrivateRoute exact path='/dashboard' component={Dashboard}/>
+                            </Switch>
                         </div>
                         <Footer/>
                     </div>
