@@ -10,6 +10,7 @@ const TextFieldGroup = ({
                             info,
                             type,
                             onChange,
+                            disable
                         }) => {
     return (
         <div className="form-group">
@@ -37,6 +38,7 @@ TextFieldGroup.propTypes={
     error:PropTypes.string,
     type:PropTypes.string.isRequired,
     onChange:PropTypes.func.isRequired,
+    disable:PropTypes.string,
 }
 
 TextFieldGroup.defaultProps={
