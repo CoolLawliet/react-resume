@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import PropTypes from 'prop-types'
 import TextFieldGroup from "../../common/TextFieldGroup";
 import TextAreaFieldGroup from "../../common/TextAreaFieldGroup";
 import SelectListGroup from "../../common/SelectListGroup";
 import InputGroup from "../../common/InputGroup";
+import {createProfile} from "../../actions/profileActions";
 
 class CreateProfile extends Component {
     constructor(props) {
@@ -30,7 +34,30 @@ class CreateProfile extends Component {
 
     onSubmit(e){
         e.preventDefault()
+        const profileData = {
+            handle: this.state.handle,
+            company: this.state.company,
+            website: this.state.website,
+            location: this.state.location,
+            status: this.state.status,
+            skills: this.state.skills,
+            githubusername: this.state.githubusername,
+            bio: this.state.bio,
+            wechat: this.state.wechat,
+            QQ: this.state.QQ,
+            tengxunkt: this.state.tengxunkt,
+            wangyikt: this.state.wangyikt,
+        };
 
+        this.props.createProfile(profileData,this.props.history)
+    }
+    //声明周期函数
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.errors){
+            this.setState({
+                errors:nextProps.errors
+            })
+        }
     }
 
     onChange(e){
@@ -46,7 +73,7 @@ class CreateProfile extends Component {
             socialInputs=(
                 <div>
                     <InputGroup
-                        placeholder="微信公众号"
+                        placeholder="微信号"
                         name="wechat"
                         icon="fab fa-weixin"
                         value={this.state.wechat}
@@ -194,4 +221,14 @@ class CreateProfile extends Component {
     }
 }
 
-export default CreateProfile;
+CreateProfile.propTypes={
+    profile:PropTypes.object.isRequired,
+    errors:PropTypes.object.isRequired
+}
+
+const mapStateToProps = state=>({
+    profile:state.profile,
+    errors:state.errors
+})
+
+export default connect(mapStateToProps,{createProfile})(withRouter(CreateProfile));
