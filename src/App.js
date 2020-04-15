@@ -22,6 +22,7 @@ import {Provider} from 'react-redux'
 
 import store from "./store";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
+import CreateProfile from "./components/create-profile/CreateProfile";
 
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken)
@@ -60,6 +61,9 @@ class App extends Component {
                             <Switch>
                                 <PrivateRoute exact path='/dashboard' component={Dashboard}/>
                             </Switch>
+                            <Switch>
+                                <PrivateRoute exact path='/create-profile' component={CreateProfile}/>
+                            </Switch>
                         </div>
                         <Footer/>
                     </div>
@@ -67,8 +71,6 @@ class App extends Component {
             </Provider>
         );
     }
-
-
 }
 
 export default App;
