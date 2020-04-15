@@ -35,7 +35,7 @@ export const deleteAccount=()=>dispatch=>{
             })
         )
 }
-//添加经历
+//添加个人经历
 export const addExperience=(expData,history)=>dispatch=>{
     axios.post('api/profile/experience',expData)
         .then(res=>history.push('/dashboard'))
@@ -46,7 +46,17 @@ export const addExperience=(expData,history)=>dispatch=>{
             })
         })
 }
-
+//添加教育经历
+export const addEducation=(eduData,history)=>dispatch=>{
+    axios.post('api/profile/education',eduData)
+        .then(res=>history.push('/dashboard'))
+        .catch(err=>{
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
 export const setProfileLoading=()=>{
     return{
         type:PROFILE_LOADING
