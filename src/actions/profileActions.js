@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER} from "./types";
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES} from "./types";
 
 export const getCurrentProfile = () => dispatch => {
     //加载动画
@@ -62,7 +62,7 @@ export const deleteExperience = id => dispatch => {
             })
         })
 }
-//删除个人经历
+//删除教育经历
 export const deleteEducation = id => dispatch => {
     axios.delete(`/api/profile/education/${id}`)
         .then(res =>
@@ -79,6 +79,25 @@ export const deleteEducation = id => dispatch => {
         })
 }
 
+//获取所有人员信息
+export const getProfiles = () => dispatch => {
+    //加载动画
+    dispatch(setProfileLoading())
+    //请求
+    axios.get(`/api/profile/all`)
+        .then(res =>
+            dispatch({
+                type: GET_PROFILES,
+                payload: res.data
+            })
+        )
+        .catch(err => {
+            dispatch({
+                type: GET_PROFILES,
+                payload: null
+            })
+        })
+}
 //添加教育经历
 export const addEducation = (eduData, history) => dispatch => {
     axios.post('api/profile/education', eduData)
