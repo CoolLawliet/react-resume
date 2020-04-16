@@ -49,13 +49,11 @@ export const addExperience = (expData, history) => dispatch => {
 //删除个人经历
 export const deleteExperience = id => dispatch => {
     axios.delete(`/api/profile/experience/${id}`)
-        .then(res =>{
-            console.log(res);
+        .then(res =>
             dispatch({
-            type: GET_PROFILE,
-            payload: res.data
-        })}
-
+                type: GET_PROFILE,
+                payload: res.data
+            })
         )
         .catch(err => {
             dispatch({
@@ -64,6 +62,23 @@ export const deleteExperience = id => dispatch => {
             })
         })
 }
+//删除个人经历
+export const deleteEducation = id => dispatch => {
+    axios.delete(`/api/profile/education/${id}`)
+        .then(res =>
+            dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            })
+        )
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
 //添加教育经历
 export const addEducation = (eduData, history) => dispatch => {
     axios.post('api/profile/education', eduData)

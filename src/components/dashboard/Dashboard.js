@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import Spinner from "../../common/Spinner";
 import ProfileActives from "./ProfileActives";
 import Experience from './Experience'
+import Education from './Education'
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -41,6 +42,7 @@ class Dashboard extends Component {
 
                         {/* 教育经历 & 个人履历 */}
                         <Experience experience={profile.experience}/>
+                        <Education education={profile.education}/>
 
                         {/* 删除账户按钮 */}
                         <div style={{ marginBottom: '60px' }} />
