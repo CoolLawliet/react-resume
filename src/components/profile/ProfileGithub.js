@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 class ProfileGithub extends Component {
     constructor(props) {
         super(props);
+        this.myRef = React.createRef()
         this.state = {
             clientId: "8ebe2e84a868d83aee26",
             clientSecret: "2b266e880173b460830aa83249d3d623b04d9593",
@@ -20,7 +21,7 @@ class ProfileGithub extends Component {
         fetch(`https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`)
             .then(res => res.json())
             .then(data => {
-                if (this.refs.myRef) {
+                if (this.myRef) {
                     this.setState({
                         repos: data
                     })
@@ -57,7 +58,7 @@ class ProfileGithub extends Component {
             </div>
         ))
         return (
-            <div ref="myRef">
+            <div ref={this.myRef}>
                 <hr/>
                 <h3 className="mb-4">Github仓库信息</h3>
                 {repoItems}
