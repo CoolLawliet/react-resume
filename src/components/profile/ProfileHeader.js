@@ -3,6 +3,7 @@ import isEmpty from '../../validation/is-empty'
 import PropTypes from 'prop-types'
 
 class ProfileHeader extends Component {
+
     render() {
         const {profile} = this.props
         return (
@@ -31,10 +32,12 @@ class ProfileHeader extends Component {
                                 {isEmpty(profile.website) ? null : (
                                     <a
                                         className="text-white p-2"
-                                        href={profile.website}
+                                        href={"http://"+profile.website}
+                                        // onClick={()=>window.location.href=`http://${profile.website}`}
+                                        rel="noopener noreferrer external"
                                         target="_blank"
                                     >
-                                        <i className="fas fa-globe fa-2x" />
+                                        <i className="fas fa-globe fa-2x"/>
                                     </a>
                                 )}
 
@@ -44,7 +47,7 @@ class ProfileHeader extends Component {
                                         // href={profile.social.wechat}
                                         target="_blank"
                                     >
-                                        <i className="fab fa-weixin fa-2x" />
+                                        <i className="fab fa-weixin fa-2x"/>
                                     </a>
                                 )}
 
@@ -54,7 +57,7 @@ class ProfileHeader extends Component {
                                         // href={profile.social.QQ}
                                         target="_blank"
                                     >
-                                        <i className="fab fa-qq fa-2x" />
+                                        <i className="fab fa-qq fa-2x"/>
                                     </a>
                                 )}
 
@@ -62,9 +65,10 @@ class ProfileHeader extends Component {
                                     <a
                                         className="text-white p-2"
                                         href={profile.social.tengxunkt}
+                                        onClick={this.toWeb.bind(this)}
                                         target="_blank"
                                     >
-                                        <i className="fab fa-youtube fa-2x" />
+                                        <i className="fab fa-youtube fa-2x"/>
                                     </a>
                                 )}
 
@@ -74,7 +78,7 @@ class ProfileHeader extends Component {
                                         href={profile.social.wangyikt}
                                         target="_blank"
                                     >
-                                        <i className="fab fa-facebook fa-2x" />
+                                        <i className="fab fa-facebook fa-2x"/>
                                     </a>
                                 )}
                             </p>
@@ -85,7 +89,8 @@ class ProfileHeader extends Component {
         );
     }
 }
-ProfileHeader.propTypes={
-    profile:PropTypes.object.isRequired
+
+ProfileHeader.propTypes = {
+    profile: PropTypes.object.isRequired
 }
 export default ProfileHeader;
