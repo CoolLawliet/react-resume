@@ -19,6 +19,25 @@ export const getCurrentProfile = () => dispatch => {
             })
         })
 }
+//根据handle获取个人信息
+export const getProfileByHandle = handle => dispatch => {
+    //加载动画
+    dispatch(setProfileLoading())
+    //请求数据
+    axios(`/api/profile/handle?handle=${handle}`)
+        .then(res =>
+            dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            })
+        )
+        .catch(err => {
+            dispatch({
+                type: GET_PROFILE,
+                payload: null
+            })
+        })
+}
 //删除账户
 export const deleteAccount = () => dispatch => {
     axios.delete('/api/profile')
@@ -48,7 +67,7 @@ export const addExperience = (expData, history) => dispatch => {
 }
 //删除个人经历
 export const deleteExperience = id => dispatch => {
-    axios.delete(`/api/profile/experience/${id}`)
+    axios.delete(`/api/profile/experience?exp_id=${id}`)
         .then(res =>
             dispatch({
                 type: GET_PROFILE,
@@ -64,7 +83,7 @@ export const deleteExperience = id => dispatch => {
 }
 //删除教育经历
 export const deleteEducation = id => dispatch => {
-    axios.delete(`/api/profile/education/${id}`)
+    axios.delete(`/api/profile/education?edu_id=${id}`)
         .then(res =>
             dispatch({
                 type: GET_PROFILE,
