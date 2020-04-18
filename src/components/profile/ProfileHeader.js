@@ -32,7 +32,7 @@ class ProfileHeader extends Component {
                                 {isEmpty(profile.website) ? null : (
                                     <a
                                         className="text-white p-2"
-                                        href={"http://"+profile.website}
+                                        href={profile.website}
                                         // onClick={()=>window.location.href=`http://${profile.website}`}
                                         rel="noopener noreferrer external"
                                         target="_blank"
