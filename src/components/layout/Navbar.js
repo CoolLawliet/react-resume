@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux'
-import {PropTypes} from 'prop-types'
+import PropTypes from 'prop-types'
 import {logoutUser} from "../../actions/authActions";
 import {clearCurrentProfile} from "../../actions/profileActions";
 
@@ -13,7 +13,6 @@ class Navbar extends Component {
         this.props.logoutUser()
     }
     render() {
-
         const {isAuthenticated, user} = this.props.auth
 
         const authLinks=(
@@ -29,7 +28,10 @@ class Navbar extends Component {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="" className="nav-link" onClick={this.onLogoutClick.bind(this)}>
+                    <a
+                        href=""
+                        className="nav-link"
+                        onClick={this.onLogoutClick.bind(this)}>
                         <img style={{width:'25px',marginRight:'5px'}} className="rounded-circle" src={user.avatar} alt={user.name}/>退出
                     </a>
                 </li>

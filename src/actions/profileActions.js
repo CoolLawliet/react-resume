@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES} from "./types";
+import {GET_PROFILE, IS_NAVFOOT,PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES} from "./types";
 
 export const getCurrentProfile = () => dispatch => {
     //加载动画
@@ -25,6 +25,25 @@ export const getProfileByHandle = handle => dispatch => {
     dispatch(setProfileLoading())
     //请求数据
     axios(`/api/profile/handle?handle=${handle}`)
+        .then(res =>
+            dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            })
+        )
+        .catch(err => {
+            dispatch({
+                type: GET_PROFILE,
+                payload: null
+            })
+        })
+}
+//根据userid获取个人信息
+export const getProfileByUserId = userId => dispatch => {
+    //加载动画
+    dispatch(setProfileLoading())
+    //请求数据
+    axios(`/api/profile/user?user_id=${userId}`)
         .then(res =>
             dispatch({
                 type: GET_PROFILE,
@@ -97,7 +116,6 @@ export const deleteEducation = id => dispatch => {
             })
         })
 }
-
 //获取所有人员信息
 export const getProfiles = () => dispatch => {
     //加载动画
@@ -153,3 +171,14 @@ export const clearCurrentProfile = () => {
         type: CLEAR_CURRENT_PROFILE
     }
 }
+
+export const isNavFoot=(isNavFoot=true)=>{
+    return {
+        type:IS_NAVFOOT
+    }
+}
+// export const bFoot=()=>{
+//     return {
+//         type:B_FOOT
+//     }
+// }

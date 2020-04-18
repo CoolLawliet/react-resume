@@ -1,13 +1,18 @@
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES} from "../actions/types";
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES, IS_NAVFOOT} from "../actions/types";
 
 const initialState = {
     profile:null,
     profiles:null,
-    loading:false
+    loading:false,
+    isNavFoot:false
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case IS_NAVFOOT:
+            return {
+                isNavFoot:true
+        }
         case GET_PROFILES:
             return {
                 ...state,

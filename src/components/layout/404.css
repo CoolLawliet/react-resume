@@ -1,0 +1,29 @@
+.error-page {
+    height: 100%;
+    display: flex;
+}
+.error-page .pic-404 {
+    text-align: center;
+    width: 60%;
+    padding: 50px;
+}
+.error-page .pic-404 .pic-404__parent {
+    width: 600px;
+}
+.error-page .notFound {
+    padding: 150px 0;
+    overflow: hidden;
+}
+.error-page .notFound span {
+    display: block;
+    line-height: 60px;
+    font-size: 18px;
+    color: #8b7b8b;
+}
+.error-page .notFound span .link {
+    color: #5cacee;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/*# sourceMappingURL=404.css.map */
