@@ -19,6 +19,7 @@ import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 
 import PrivateRoute from "./common/PrivateRoute";
+import NoPage from "./components/layout/NoPage";
 
 import setAuthToken from "./utils/setAuthToken";
 import jwt_decode from 'jwt-decode'
@@ -30,6 +31,7 @@ import {Provider} from 'react-redux'
 
 import store from "./store";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
+import {getCurrentProfile, isNavFoot} from "./actions/profileActions";
 import CreateProfile from "./components/create-profile/CreateProfile";
 
 if (localStorage.jwtToken) {
@@ -39,7 +41,6 @@ if (localStorage.jwtToken) {
     store.dispatch(setCurrentUser(decoded))
 
     //检测token是否过期
-
     //获取当前时间
     const currentTime = Date.now() / 1000
 
@@ -55,47 +56,55 @@ if (localStorage.jwtToken) {
 
 }
 
+
 class App extends Component {
+    state={};
+
+    static getDerivedStateFromProps(nextProps,nextState){
+
+        let path = nextProps.location.pathname;
+        if (/register|login|profiles|profile|dashboard|create-profile|edit-profile|add-experience|add-education|feed|post/.test(path)){
+            store.dispatch(isNavFoot())
+            store.dispatch(getCurrentProfile())
+        }
+        return null;
+
+    }
     render() {
+        const {isNavFoot} = store.getState().profile;
         return (
             <Provider store={store}>
                 <Router>
                     <div className="App">
-                        <Navbar/>
+                        {isNavFoot&&<Navbar/>}
                         <Route exact path='/' component={Landing}/>
                         <div className="container">
+                            <Switch>
                             <Route exact path='/register' component={Register}/>
                             <Route exact path='/login' component={Login}/>
                             <Route exact path='/profiles' component={Profiles}/>
                             <Route exact path='/profile/:handle' component={Profile}/>
-                            <Switch>
+                            {/*<Route exact path='/profile/:userId' component={Profile}/>*/}
+
                                 <PrivateRoute exact path='/dashboard' component={Dashboard}/>
-                            </Switch>
-                            <Switch>
                                 <PrivateRoute exact path='/create-profile' component={CreateProfile}/>
-                            </Switch>
-                            <Switch>
                                 <PrivateRoute exact path='/edit-profile' component={EditProfile}/>
-                            </Switch>
-                            <Switch>
                                 <PrivateRoute exact path='/add-experience' component={AddExperience}/>
-                            </Switch>
-                            <Switch>
                                 <PrivateRoute exact path='/add-education' component={AddEducation}/>
-                            </Switch>
-                            <Switch>
                                 <PrivateRoute exact path='/feed' component={Posts}/>
-                            </Switch>
-                            <Switch>
                                 <PrivateRoute exact path='/post/:id' component={Post}/>
+                                <Route component={NoPage} />
                             </Switch>
                         </div>
-                        <Footer/>
+                        {isNavFoot && <Footer/>}
                     </div>
                 </Router>
             </Provider>
         );
     }
 }
+// const mapStateToProps = state => ({
+//     bNav:state.bNav
+// })
 
 export default App;
