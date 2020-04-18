@@ -1,22 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import Landing from "./components/layout/Landing";
-
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-
-import Dashboard from "./components/dashboard/Dashboard";
-import EditProfile from "./components/edit-profile/EditProfile";
-import AddExperience from "./components/add-credentials/AddExperience";
-import AddEducation from "./components/add-credentials/AddEducation";
-import Profiles from "./components/profiles/Profiles";
-import Profile from "./components/profile/Profile";
-
-import Posts from "./components/posts/Posts";
-import Post from "./components/post/Post";
+import asyncComponent from "./asyncComponent";
 
 import PrivateRoute from "./common/PrivateRoute";
 import NoPage from "./components/layout/NoPage";
@@ -32,7 +17,39 @@ import {Provider} from 'react-redux'
 import store from "./store";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
 import {getCurrentProfile, isNavFoot} from "./actions/profileActions";
-import CreateProfile from "./components/create-profile/CreateProfile";
+const Navbar = asyncComponent(()=>{return import("./components/layout/Navbar")})
+const Footer = asyncComponent(()=>{return import("./components/layout/Footer")})
+const Landing = asyncComponent(()=>{return import("./components/layout/Landing")})
+const Login = asyncComponent(()=>{return import("./components/auth/Login")})
+const Register = asyncComponent(()=>{return import("./components/auth/Register")})
+const Dashboard = asyncComponent(()=>{return import("./components/dashboard/Dashboard")})
+const EditProfile = asyncComponent(()=>{return import("./components/edit-profile/EditProfile")})
+const AddExperience = asyncComponent(()=>{return import("./components/add-credentials/AddExperience")})
+const AddEducation = asyncComponent(()=>{return import("./components/add-credentials/AddEducation")})
+const Profiles = asyncComponent(()=>{return import("./components/profiles/Profiles")})
+const Profile = asyncComponent(()=>{return import("./components/profile/Profile")})
+const Posts = asyncComponent(()=>{return import("./components/posts/Posts")})
+const Post = asyncComponent(()=>{return import("./components/post/Post")})
+/*import Footer from "./components/layout/Footer";
+import Landing from "./components/layout/Landing";
+
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+
+import Dashboard from "./components/dashboard/Dashboard";
+import EditProfile from "./components/edit-profile/EditProfile";
+import AddExperience from "./components/add-credentials/AddExperience";
+import AddEducation from "./components/add-credentials/AddEducation";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
+
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";*/
+
+
+// import CreateProfile from "./components/create-profile/CreateProfile";
+const CreateProfile = asyncComponent(()=>{return import("./components/create-profile/CreateProfile")})
+
 
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken)
