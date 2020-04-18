@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classnames from 'classnames';
 import {connect} from 'react-redux';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {deletePost, addLike, removeLike} from '../../actions/postActions';
 
@@ -35,10 +35,10 @@ class PostItem extends Component {
             <div className="card card-body mb-3">
                 <div className="row">
                     <div className="col-md-2">
-                        <a href="profile.html">
+                        <Link to={`/profile/${post.user}`}>
                             <img className="rounded-circle d-nonse d-md-block" src={post.avatar}
                                  alt=""/>
-                        </a>
+                        </Link>
                         <br/>
                         <p className="text-center">{post.name}</p>
                     </div>
