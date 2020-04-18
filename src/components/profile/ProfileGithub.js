@@ -7,7 +7,7 @@ class ProfileGithub extends Component {
         this.myRef = React.createRef()
         this.state = {
             clientId: "8ebe2e84a868d83aee26",
-            clientSecret: "2b266e880173b460830aa83249d3d623b04d9593",
+            clientSecret: "d775db029be872a7fdc76f0d0ad2c39244eaed2a",
             count: 0,
             sort: 'created: desc',
             repos: []
@@ -37,7 +37,7 @@ class ProfileGithub extends Component {
                 <div className="row">
                     <div className="col-md-6">
                         <h4>
-                            <a href={repo.html_url} className="text-info" target="_blank">
+                            <a href={repo.html_url} className="text-info" target="_blank" rel="noopener noreferrer">
                                 {repo.name}
                             </a>
                         </h4>

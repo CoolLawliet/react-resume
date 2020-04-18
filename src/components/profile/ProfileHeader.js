@@ -43,9 +43,11 @@ class ProfileHeader extends Component {
 
                                 {isEmpty(profile.social && profile.social.wechat) ? null : (
                                     <a
+                                        href=""
                                         className="text-white p-2"
                                         // href={profile.social.wechat}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                     >
                                         <i className="fab fa-weixin fa-2x"/>
                                     </a>
@@ -55,7 +57,9 @@ class ProfileHeader extends Component {
                                     <a
                                         className="text-white p-2"
                                         // href={profile.social.QQ}
+                                        href=""
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                     >
                                         <i className="fab fa-qq fa-2x"/>
                                     </a>
@@ -67,6 +71,7 @@ class ProfileHeader extends Component {
                                         href={profile.social.tengxunkt}
                                         onClick={this.toWeb.bind(this)}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                     >
                                         <i className="fab fa-youtube fa-2x"/>
                                     </a>
@@ -77,6 +82,7 @@ class ProfileHeader extends Component {
                                         className="text-white p-2"
                                         href={profile.social.wangyikt}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                     >
                                         <i className="fab fa-facebook fa-2x"/>
                                     </a>
