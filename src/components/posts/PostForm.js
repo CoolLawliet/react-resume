@@ -30,6 +30,7 @@ class PostForm extends Component {
             avatar: user.avatar
         }
         this.props.addPost(newPost)
+        this.setState({text:''})
     }
     onChange(e){
         this.setState({[e.target.name]:e.target.value})

@@ -21,7 +21,7 @@ export const addPost = postData => dispatch => {
 // 获取评论
 export const getPosts = () => dispatch => {
     dispatch(setPostLoading);
-    axios.get("/api/posts")
+    axios.get("/api/posts/all")
         .then(res =>
             dispatch({
                 type: GET_POSTS,
@@ -39,7 +39,7 @@ export const getPosts = () => dispatch => {
 // 获取单条评论
 export const getPost = id => dispatch => {
     dispatch(setPostLoading);
-    axios.get(`/api/posts/${id}`)
+    axios.get(`/api/posts?id=${id}`)
         .then(res =>
             dispatch({
                 type: GET_POST,
@@ -56,7 +56,7 @@ export const getPost = id => dispatch => {
 
 // 删除一条评论
 export const deletePost = id => dispatch => {
-    axios.delete(`/api/posts/${id}`)
+    axios.delete(`/api/posts?id=${id}`)
         .then(res =>
             dispatch({
                 type: DELETE_POST,
@@ -73,7 +73,7 @@ export const deletePost = id => dispatch => {
 
 // 点赞
 export const addLike = id => dispatch => {
-    axios.post(`/api/posts/like/${id}`)
+    axios.post(`/api/posts/like?id=${id}`)
         .then(res =>
             window.location.reload()
         )
@@ -87,7 +87,7 @@ export const addLike = id => dispatch => {
 
 // 取消点赞
 export const removeLike = id => dispatch => {
-    axios.post(`/api/posts/unlike/${id}`)
+    axios.post(`/api/posts/unlike?id=${id}`)
         .then(res =>
             window.location.reload()
         )
@@ -101,7 +101,7 @@ export const removeLike = id => dispatch => {
 
 // 添加留言
 export const addComment = (postId, commentData) => dispatch => {
-    axios.post(`/api/posts/comment/${postId}`, commentData)
+    axios.post(`/api/posts/comment?id=${postId}`, commentData)
         .then(res =>
             dispatch({
                 type: GET_POST,
@@ -118,7 +118,7 @@ export const addComment = (postId, commentData) => dispatch => {
 
 // 删除留言
 export const deleteComment = (postId, commentId) => dispatch => {
-    axios.delete(`/api/posts/comment/${postId}/${commentId}`)
+    axios.delete(`/api/posts/comment?id=${postId}&comment_id=${commentId}`)
         .then(res =>
             dispatch({
                 type: GET_POST,

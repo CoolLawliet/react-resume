@@ -1,8 +1,25 @@
 import React, {Component} from 'react';
 import PostForm from './PostForm'
+import {connect} from 'react-redux'
+import PropTypes from "prop-types";
+import {getPosts} from '../../actions/postActions'
+import Spinner from "../../common/Spinner";
+import PostFeed from "./PostFeed";
 
 class Posts extends Component {
+    componentDidMount() {
+        this.props.getPosts()
+    }
+
     render() {
+        const {posts,loading} = this.props.post
+
+        let postContent
+        if (posts===null ||loading){
+            postContent=<Spinner/>
+        }else{
+            postContent=<PostFeed posts={posts}/>
+        }
         return (
             <div className="feed">
                 <div className="container">
@@ -11,7 +28,7 @@ class Posts extends Component {
                             {/* 展示评论表单 */}
                             <PostForm />
                             {/* 展示点赞内容 */}
-                            {/*{postContent}*/}
+                            {postContent}
                         </div>
                     </div>
                 </div>
@@ -19,5 +36,13 @@ class Posts extends Component {
         );
     }
 }
+Posts.propTypes={
+    getPosts:PropTypes.func.isRequired,
+    post:PropTypes.object.isRequired,
+}
 
-export default Posts;
+//将状态映射为属性
+const mapStateToProps = (state)=>({
+    post:state.post
+})
+export default connect(mapStateToProps,{getPosts})(Posts);
